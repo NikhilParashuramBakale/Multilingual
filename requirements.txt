@@ -1,0 +1,17 @@
+# Install a CUDA-compatible PyTorch build first when using NVIDIA GPU; see README.
+streamlit>=1.39,<2
+openai-whisper>=20240930
+torch>=2.4
+torchaudio>=2.4
+transformers>=4.48
+accelerate>=1.2
+huggingface_hub>=0.27
+sentencepiece>=0.2
+soundfile>=0.12
+jiwer>=3.0
+pandas>=2.2
+numpy>=1.26
+pytest>=8.0
+# Required by ai4bharat/indic-conformer-600m-multilingual custom code:
+onnx==1.20.1
+onnxruntime==1.20.1
