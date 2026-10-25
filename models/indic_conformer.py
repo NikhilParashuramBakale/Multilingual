@@ -12,12 +12,17 @@ from typing import Any, Dict, Optional
 
 from models._audio import load_audio_16k_mono
 from models._base import ASRModel, ASRResult
+from .language_support import ENGLISH, SCHEDULED_LANGUAGES
 
 
 class IndicConformerWrapper(ASRModel):
     """Wrapper around ``ai4bharat/indic-conformer-600m-multilingual``."""
 
     MODEL_ID = "ai4bharat/indic-conformer-600m-multilingual"
+    from .language_support import SCHEDULED_LANGUAGES, ENGLISH
+    supported_languages = frozenset(item.code for item in SCHEDULED_LANGUAGES + (ENGLISH,))
+    supports_auto_detection = False
+    supports_code_switching = True
 
     def __init__(self) -> None:
         super().__init__(
@@ -80,6 +85,9 @@ class IndicConformerWrapper(ASRModel):
 class IndicConformer:
     """Self-loading adapter using AI4Bharat's documented AutoModel call."""
     name = "ai4bharat/indic-conformer-600m-multilingual"
+    supported_languages = frozenset(item.code for item in SCHEDULED_LANGUAGES + (ENGLISH,))
+    supports_auto_detection = False
+    supports_code_switching = True
     def __init__(self) -> None:
         from models.device import preferred_device
         self.model = None

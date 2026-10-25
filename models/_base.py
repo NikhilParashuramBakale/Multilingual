@@ -18,6 +18,7 @@ class ASRResult:
     device: Optional[str] = None
     model_name: str = ""
     raw_output: Dict[str, Any] = field(default_factory=dict)
+    memory_usage_mb: Optional[float] = None
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -27,6 +28,7 @@ class ASRResult:
             "device": self.device,
             "model_name": self.model_name,
             "raw_output": self.raw_output,
+            "memory_usage_mb": self.memory_usage_mb,
         }
 
 
@@ -39,6 +41,10 @@ class ASRModel(abc.ABC):
         self._model: Any = None
         self._device: Optional[str] = None
         self._loaded = False
+
+    supported_languages: frozenset[str] = frozenset()
+    supports_auto_detection: bool = False
+    supports_code_switching: bool = False
 
     @property
     def is_loaded(self) -> bool:

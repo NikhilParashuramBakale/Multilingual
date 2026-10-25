@@ -16,6 +16,12 @@ class WhisperWrapper(ASRModel):
     """Wrapper around OpenAI Whisper via the ``openai-whisper`` package."""
 
     SUPPORTED_MODELS = ("tiny", "base", "small", "medium", "large-v3")
+    from .language_support import SCHEDULED_LANGUAGES, WHISPER_ADDITIONAL_LANGUAGES
+    supported_languages = frozenset(
+        item.code for item in SCHEDULED_LANGUAGES + WHISPER_ADDITIONAL_LANGUAGES
+    )
+    supports_auto_detection = True
+    supports_code_switching = True
 
     def __init__(self, model_name: str = "medium") -> None:
         if model_name not in self.SUPPORTED_MODELS:

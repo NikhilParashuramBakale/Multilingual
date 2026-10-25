@@ -17,6 +17,10 @@ class IndicTranscribeCoreWrapper(ASRModel):
     """Wrapper around ``bodhan-ai/indic-transcribe-core``."""
 
     MODEL_ID = "bodhan-ai/indic-transcribe-core"
+    from .language_support import SCHEDULED_LANGUAGES, ENGLISH
+    supported_languages = frozenset(item.code for item in SCHEDULED_LANGUAGES + (ENGLISH,))
+    supports_auto_detection = True
+    supports_code_switching = True
 
     def __init__(self) -> None:
         super().__init__(

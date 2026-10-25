@@ -3,11 +3,15 @@ import sys, time
 from pathlib import Path
 from .base import ASRModel, ASRResult, ModelUnavailable
 from .device import preferred_device
+from .language_support import ENGLISH, SCHEDULED_LANGUAGES
 
 class IndicTranscribeCore(ASRModel):
     """Uses the repository's documented IndicTranscribe class, not Whisper's API."""
     name = "bodhan-ai/indic-transcribe-core"
     repo_id = "bodhan-ai/indic-transcribe-core"
+    supported_languages = frozenset(item.code for item in SCHEDULED_LANGUAGES + (ENGLISH,))
+    supports_auto_detection = True
+    supports_code_switching = True
     def __init__(self): self.asr = None; self.device = preferred_device(min_free_gib=7)
     def _load(self):
         if self.asr is not None: return
